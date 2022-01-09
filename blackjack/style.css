@@ -22,6 +22,16 @@ h1,h2,h3,h4 {
     font-style: italic;
 }
 
+.ui {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
 button {
     position:relative;
     color: #016f32;
@@ -52,15 +62,6 @@ button:hover {
 }
 #button--hold:hover {
     background: orangered;
-}
-.ui {
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
 }
 #game-section {
     display: flex;
