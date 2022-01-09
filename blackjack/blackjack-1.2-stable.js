@@ -26,7 +26,7 @@ const renderCards = () => {
     for(let j = 0; j < suitNames.length; j++)
     {
         /* LOOP 3 - Loop the 13 card set generated in LOOP 1 through 4 Suites to get total 52 cards */
-        thisSuit = getCardSuit();
+        const thisSuit = getCardSuit();
         thisSuit.forEach((rec) => {rec.suit = suitNames[j];});
         
         cardsDeck = cardsDeck.concat(thisSuit);
@@ -34,7 +34,6 @@ const renderCards = () => {
     return cardsDeck;
 }
 //console.log(renderCards());
-
 
 /* Define Function to SHUFFLE CARDS - Fisher-Yates (aka Knuth) Shuffle */
 /* Pass an array of cards - newDeck to Shuffle */
@@ -81,33 +80,35 @@ const computer = {
 
 /* GRAPHICS INITIALIZATION */
 let message = "";
-let messageEl = document.getElementById("message-el");
-let sumEl = document.getElementById("sum-el");
-let cardsEl = document.getElementById("cards-el");
-let playerEl = document.getElementById("player-el");
+const messageEl = document.getElementById("message-el");
+const sumEl = document.getElementById("sum-el");
+const cardsEl = document.getElementById("cards-el");
+const playerEl = document.getElementById("player-el");
 
-let br = document.createElement("br");
+playerEl.textContent = `${player.name}: $${player.chips}`;
 
-playerEl.textContent = player.name + ": $" + player.chips;
+const startButton = document.getElementById("button--startgame");
+const newCardButton = document.getElementById("button--newcard");
+const holdButton = document.getElementById("button--hold");
 
-newCardButton = document.getElementById("button--newcard");
-holdButton = document.getElementById("button--hold");
+/* Add Event Listeners */
+startButton.addEventListener("click", () => {
+    startGame();
+});
+newCardButton.addEventListener("click", () => {
+    newCard();
+});
+holdButton.addEventListener("click", () => {
+    //function for hold
+});
 
 /* Function to pick a Random card */
 const getRandomCard = (newDeck) => {
-    let index = Math.floor( Math.random()*totalCards );
-    let pickedCard = newDeck[index];
+    const index = Math.floor( Math.random()*totalCards );
+    const pickedCard = newDeck[index];
     totalCards -= 1;
     //console.log(totalCards);
     //console.log(pickedCard);
-
-    /* Card Graphics */
-    let li = document.createElement("li");
-    let playerCards = document.getElementById("player-cards");
-    cardName = document.createTextNode(pickedCard.name + " of " + pickedCard.suit);
-    li.appendChild(cardName);
-    playerCards.appendChild(li);
-
     removeCard(newDeck, index);
     return pickedCard;
     //console.log(newDeck);
@@ -120,24 +121,18 @@ const removeCard = (newDeck, index) => newDeck.splice(index,1);
 /* King, Queen, Jack - 11,12,13 = 10 ||| Ace = 1 or 11 ||| Other Cards - As per Index Value */
 const getCardValue = (newDeck) => {
     pickedCard = getRandomCard(newDeck);
-    if (pickedCard["suit_index"] > 10) {
-        return 10;
-    } else if (pickedCard["suit_index"] === 1) {
-        return getAceValue();
-    } else {
-        return pickedCard["suit_index"];
-    }
+
+    return (pickedCard["suit_index"] > 10) ? 10
+        : (pickedCard["suit_index"] === 1) ? getAceValue()
+        : pickedCard["suit_index"];
 }
 /* Ace Value Randomizer */
 /* Generate Random Number between 0 and 1 and round to nearest whole number, for a boolean-like true-false */
 /* If 0 = 1, if 1 = 11 */
 const getAceValue = () => {
     const trueFalse = Math.round ( Math.random() );
-    if(trueFalse === 0) {
-        return 1;
-    } else {
-        return 11;
-    }
+
+    return (trueFalse === 0) ? 1 : 11;
 }
 
 /* Initialize Defaults and Start Game */
@@ -157,7 +152,7 @@ const startGame = () => {
     renderGame();
 }
 
-/* Game Rendering with Graphics */
+/* Rendering Game Graphics */
 const renderGame = () => {
     cardsEl.textContent = "Cards: ";
     for (let i = 0; i < player.cards.length; i++) {
@@ -185,6 +180,10 @@ const renderGame = () => {
         newCardButton.style.display = "none";
         holdButton.style.display = "none";
     }
+    /* Card Graphics */
+    const playerCards = document.getElementById("player-cards");
+    cardName = `${pickedCard.name} of ${pickedCard.suit}`;
+    playerCards.innerHTML += `<li>${cardName}</li>`
 }
 
 /* Function for Drawing a Card*/
