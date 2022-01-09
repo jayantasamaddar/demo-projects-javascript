@@ -1,0 +1,95 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', Arial, sans-serif;
+    background-image: url("images/table.jpg");
+    background-size: cover;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+h1,h2,h3,h4 {
+    color: goldenrod;
+}
+
+.container {
+    margin: 1rem auto;
+}
+
+#message-el {
+    font-style: italic;
+}
+
+button {
+    position:relative;
+    color: #016f32;
+    width: 300px;
+    background: goldenrod;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 30px;
+    border: none;
+    border-radius: 2px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    align-self: center;
+}
+button:hover {
+    background:gold;
+    cursor:pointer;
+}
+#button--newcard {
+    justify-content: center;
+    text-align: center;
+}
+#button--hold {
+    display:none;
+    font-size: 16px;
+    background:chocolate;
+}
+#button--hold:hover {
+    background: orangered;
+}
+.ui {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+#game-section {
+    display: flex;
+    flex-wrap: wrap;
+    float: none;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+}
+.game-area {
+    margin-right: 50px;
+    margin-left: 50px;
+    text-align:center;
+    justify-content:center;
+}
+ul {
+    display: flex;
+    flex-wrap:wrap;
+    white-space: pre-wrap;
+    list-style-type: none;
+    width: 100%;
+}
+li {
+    list-style: none;
+    text-align: center;
+    display: block;
+    margin-right: 20px;
+}
+#player-hand {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+/*label {display: block;}
+li:nth-child(odd) {clear: left;}*/

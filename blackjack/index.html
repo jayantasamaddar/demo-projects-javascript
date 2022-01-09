@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header><h1>Blackjack</h1></header>
+        <p id="message-el">Want to play a round?</p>
+        <section id="game-section">
+            <div class="game-area" id="player1-area">
+                <h4 id="player-name">You</h4>
+                <p id="cards-el">Cards:</p>
+                <p id="sum-el">Sum:</p>
+            </div>
+            <div class="game-area" id="player2-area">
+                <h4 id="player-name">Player 2</h4>
+                <p id="ai-cards-el">Cards:</p>
+                <p id="ai-sum-el">Sum:</p>
+            </div>
+        </section>
+        <div class="ui">
+            <button id="button--startgame" onclick="startGame()">START GAME</button>
+            <button id="button--newcard" onclick="newCard()">NEW CARD</button>
+            <button id="button--hold" onclick="holdCard()">HOLD</button>
+            <p id="player-el"></p>
+        </div>
+
+        <section id="game-section">
+            <div class="container" id="player-hand">
+                <h3>My Hand</h3>
+                <ul id="player-cards"></ul>
+            </div>
+            <div class="container" id="player-hand">
+                <h3>Player 2's Hand</h3>
+                <ul id="ai-cards"></ul>
+            </div>
+        </section>
+        <script src="blackjack-1.1-stable.js"></script>
+    </body>
+</html>
