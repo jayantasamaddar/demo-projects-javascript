@@ -106,7 +106,7 @@ holdButton.addEventListener("click", () => {
 const getRandomCard = (newDeck) => {
     const index = Math.floor( Math.random()*totalCards );
     const pickedCard = newDeck[index];
-    totalCards -= 1;
+    totalCards --;
     //console.log(totalCards);
     //console.log(pickedCard);
     removeCard(newDeck, index);
@@ -122,6 +122,11 @@ const removeCard = (newDeck, index) => newDeck.splice(index,1);
 const getCardValue = (newDeck) => {
     pickedCard = getRandomCard(newDeck);
 
+    /* Card Graphics */
+    const playerCards = document.getElementById("player-cards");
+    cardName = `${pickedCard.name} of ${pickedCard.suit}`;
+    playerCards.innerHTML += `<li>${cardName}</li>`
+
     return (pickedCard["suit_index"] > 10) ? 10
         : (pickedCard["suit_index"] === 1) ? getAceValue()
         : pickedCard["suit_index"];
@@ -131,7 +136,6 @@ const getCardValue = (newDeck) => {
 /* If 0 = 1, if 1 = 11 */
 const getAceValue = () => {
     const trueFalse = Math.round ( Math.random() );
-
     return (trueFalse === 0) ? 1 : 11;
 }
 
@@ -180,10 +184,6 @@ const renderGame = () => {
         newCardButton.style.display = "none";
         holdButton.style.display = "none";
     }
-    /* Card Graphics */
-    const playerCards = document.getElementById("player-cards");
-    cardName = `${pickedCard.name} of ${pickedCard.suit}`;
-    playerCards.innerHTML += `<li>${cardName}</li>`
 }
 
 /* Function for Drawing a Card*/
