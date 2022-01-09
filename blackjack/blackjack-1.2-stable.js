@@ -3,29 +3,32 @@ const suitNames = ["Hearts","Diamonds","Spades","Clubs"];
 const cardNames = ["Ace",2,3,4,5,6,7,8,9,10,"Jack","Queen","King"];
 const cardsPerSuit = 13;
 let totalCards = 52;
-/* There are 13 cards per suit. Assign an index value to each card from 1-13 */
-function getCardSuit() {
-    const cardSet = [];
-    for(let i = 0; i < cardNames.length; i++)
-    {
-        const card = new Object();
-        card.name = cardNames[i];
-        card["suit_index"] = i + 1;
-        cardSet.push(card);
-    }
-    return cardSet;
-}
+
 /* Declare Default cardsDeck array to store 52 cards with information about each card as its own object */
 let cardsDeck = [];
-function renderCards() {
-    /* cardsDeck needs to reset everytime renderCards is run */
+const renderCards = () => {
+    /* cardsDeck needs to initialize everytime renderCards is run hence cardsDeck cannot be a const variable*/
     cardsDeck = [];
+    /* There are 13 cards per suit. Assign a suit_index value to each of 13 cards from 1-13 */
+    const getCardSuit = () => {
+        const cardSuit = [];
+        /* LOOP 1 - Generate 13 cards */
+        for(let i = 0; i < cardNames.length; i++)
+        {
+            const card = new Object();
+            card.name = cardNames[i];
+            card["suit_index"] = i + 1;
+            cardSuit.push(card);
+        }
+        return cardSuit;
+    }
+    /* LOOP 2 - There are 4 Suits in Cards */
     for(let j = 0; j < suitNames.length; j++)
     {
+        /* LOOP 3 - Loop the 13 card set generated in LOOP 1 through 4 Suites to get total 52 cards */
         thisSuit = getCardSuit();
-        thisSuit.forEach(function(rec) {
-            rec.suit = suitNames[j];
-        });
+        thisSuit.forEach((rec) => {rec.suit = suitNames[j];});
+        
         cardsDeck = cardsDeck.concat(thisSuit);
     }
     return cardsDeck;
@@ -37,8 +40,7 @@ function renderCards() {
 /* Pass an array of cards - newDeck to Shuffle */
 /* Pass the deck_index value to each card object to store where the card's index in the deck after shuffle */
 let newDeck = [];
-function shuffleDeck(newDeck)
-{
+const shuffleDeck = (newDeck) => {
     let currentIndex = newDeck.length;
     let randomIndex = 0;
     // While there are remaining elements to shuffle
@@ -50,10 +52,8 @@ function shuffleDeck(newDeck)
         // And swap it with the current element
         [newDeck[currentIndex], newDeck[randomIndex]] = [newDeck[randomIndex], newDeck[currentIndex]];
     }
-    newDeck.forEach(addIndex);
-    function addIndex(rec) {
-        rec["deck_index"] = newDeck.indexOf(rec) + 1;
-    }
+    /* LOOP 4 - Assign a variable deck_index that changes every time cards are shuffled*/
+    newDeck.forEach((rec) => {rec["deck_index"] = newDeck.indexOf(rec) + 1;});
     return newDeck;
 }
 
@@ -94,7 +94,7 @@ newCardButton = document.getElementById("button--newcard");
 holdButton = document.getElementById("button--hold");
 
 /* Function to pick a Random card */
-function getRandomCard(newDeck) {
+const getRandomCard = (newDeck) => {
     let index = Math.floor( Math.random()*totalCards );
     let pickedCard = newDeck[index];
     totalCards -= 1;
@@ -113,17 +113,12 @@ function getRandomCard(newDeck) {
     //console.log(newDeck);
 }
 /* Function to remove a card by passing a card object and the index of the card in the deck */
-function removeCard(newDeck, index)
-{
-    newDeck.splice(index,1);
+const removeCard = (newDeck, index) => newDeck.splice(index,1);
     //console.log("Current Deck Size: " + newDeck.length);
-}
+
 /* Get the value of the card as per Blackjack rules */
-/* King, Queen, Jack - 11,12,13 = 10 */
-/* Ace = 1 or 11 */
-/* Other Cards - As per Index Value */
-function getCardValue(newDeck)
-{
+/* King, Queen, Jack - 11,12,13 = 10 ||| Ace = 1 or 11 ||| Other Cards - As per Index Value */
+const getCardValue = (newDeck) => {
     pickedCard = getRandomCard(newDeck);
     if (pickedCard["suit_index"] > 10) {
         return 10;
@@ -136,7 +131,7 @@ function getCardValue(newDeck)
 /* Ace Value Randomizer */
 /* Generate Random Number between 0 and 1 and round to nearest whole number, for a boolean-like true-false */
 /* If 0 = 1, if 1 = 11 */
-function getAceValue() {
+const getAceValue = () => {
     const trueFalse = Math.round ( Math.random() );
     if(trueFalse === 0) {
         return 1;
@@ -146,7 +141,7 @@ function getAceValue() {
 }
 
 /* Initialize Defaults and Start Game */
-function startGame() {
+const startGame = () => {
     totalCards = 52;
     newDeck = renderCards();
     shuffleDeck(newDeck);
@@ -163,7 +158,7 @@ function startGame() {
 }
 
 /* Game Rendering with Graphics */
-function renderGame() {
+const renderGame = () => {
     cardsEl.textContent = "Cards: ";
     for (let i = 0; i < player.cards.length; i++) {
         cardsEl.textContent += player.cards[i] + " ";
@@ -193,7 +188,7 @@ function renderGame() {
 }
 
 /* Function for Drawing a Card*/
-function newCard() {
+const newCard = () => {
     if (player.isAlive === true && player.hasBlackJack === false) {
         const cardValue = getCardValue(newDeck);
         player.cardsum += cardValue;
