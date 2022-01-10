@@ -1,0 +1,24 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+/* CSS Variables */
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+table {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /*display: none;*/
+}
+
+table thead {
+    margin-top: 30px;
+}
+img {
+    height: 25px;
+}
