@@ -35,8 +35,8 @@ Hence it can be said that JavaScript traditionally will execute code top-to-bott
 
 Many computers now have multiple cores, so can do multiple things at once. Programming languages that can support multiple threads can use multiple cores to complete multiple tasks simultaneously:
 
-> Thread 1: Task A --> Task B
-> Thread 2: Task C --> Task D
+> **Thread 1: Task A --> Task B**
+> **Thread 2: Task C --> Task D**
 
 ### JavaScript being Single Threaded
 ------------------------------------
@@ -46,8 +46,8 @@ JavaScript is traditionally single-threaded. Even with multiple cores, you could
 
 After some time, JavaScript gained some tools to help with such problems. [**Web workers**](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) allow you to send some of the JavaScript processing off to a separate thread, called a worker so that you can run multiple JavaScript chunks simultaneously. You'd generally use a worker to run expensive processes off the main thread so that user interaction is not blocked.
 
-> Main thread: Task A --> Task C
-> Worker thread: Expensive task B
+> **Main thread: Task A --> Task C**
+> **Worker thread: Expensive task B**
 
 We explore these three methods of asynchronous Javascript requests :- 
 
@@ -70,11 +70,11 @@ Quite a few years after this, Gmail and other rich apps made heavy use of it, an
 
 
 
-## METHOD 2 - Using the fetch API that utilizes Promises
---------------------------------------------------------
+## METHOD 2 - Using the fetch API that utilizes Promises introduced in ES2015
+-----------------------------------------------------------------------------
 ### Introduction
 ----------------
-The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) introduced in ES2015 with Promises provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline, such as requests and responses. It also provides a global fetch() method that provides an easy, logical way to fetch resources asynchronously across the network.
+The [**Fetch API**](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) introduced in ES2015 with [**Promises**](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises) provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline, such as requests and responses. It also provides a global fetch() method that provides an easy, logical way to fetch resources asynchronously across the network.
 
 This kind of functionality was previously achieved using XMLHttpRequest. Fetch provides a better alternative that can be easily used by other technologies such as Service Workers. Fetch also provides a single logical place to define other HTTP-related concepts such as CORS and extensions to HTTP.
 
@@ -87,7 +87,7 @@ The fetch specification differs from jQuery.ajax() in the following significant 
 
 ### Key Notes:
 --------------
-- Fetch will always return a Promise.
+- Fetch will always return a [**Promise**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 - The Promise needs to be converted to usable JSON before parsing further.
 - The Promise returned from fetch() won't reject on HTTP error status even if the response is a HTTP 404 or 500. Instead it will resolve normally (with ok status set to false), and it will only reject on network failure or if anything prevented the request from completing.
 - fetch() won't send cross-origin cookies unless you set the credentials init option (to include). In April 2018, the spec changed the default credentials policy to 'same-origin'. If you are targetting older versions of Firefox (pre 61.0b13), Safari 12, Chrome 68, be sure to include credentials: 'same-origin' option on all api requests that may be affected by cookies/user login state.
@@ -95,4 +95,14 @@ The fetch specification differs from jQuery.ajax() in the following significant 
 
 ## METHOD 3 - Using Async functions introduced in ES2017
 ---------------------------------------------------------
-fetch() API has been further been superseded by Async (await) functions in 2017 which use the Promises API has their building block.S
+### Introduction
+----------------
+More recent additions to the JavaScript language are `async` functions and the `await` keyword, added in ECMAScript 2017. These features basically act as syntactic sugar on top of promises, making asynchronous code easier to write and to read afterwards. They make async code look more like old-school synchronous code.
+
+### Key Notes:
+--------------
+- The `async` keyword is put in front of a function declaration to turn it into an async function. An async function is a function that knows how to expect the possibility of the `await` keyword being used to invoke asynchronous code.
+- The `async` keyword is added to functions to tell them to return a promise rather than directly returning the value.
+- The `await` keyword. await only works inside async functions within regular JavaScript code, however it can be used on its own with [**JavaScript modules**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
+- `await` can be put in front of any async promise-based function to pause the code on that line until the promise fulfills, then return the resulting value.
+- Errors in `async` functions are handled with the the [`try...catch` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
